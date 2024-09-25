@@ -12,6 +12,7 @@ pipeline {
         PRODUCTION_ENVIRONMENT = "production"
         SONAR_HOST_URL = "http://localhost:9000"
         SONAR_SCANNER_HOME = tool "SonarQube Scanner 6.2"
+        SONAR_LOGIN_TOKEN = "sqp_7145b5dbe5cc9e3a502f1c02b1cf631623e1664a"
     }
 
     stages {
@@ -55,7 +56,7 @@ pipeline {
                 //     echo "Tool: SonarQube"
                 // }
 
-                withSonarQubeEnv("SonarQube") {
+                withSonarQubeEnv("MySonarQubeServer") {
                     sh """
                         ${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=${env.sonar.projectKey} \
