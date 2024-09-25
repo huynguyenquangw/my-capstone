@@ -3,6 +3,7 @@ pipeline {
 
     tools { 
         nodejs "NodeJS 18.20"
+        "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "Docker latest"
     }
 
     environment {
@@ -14,10 +15,10 @@ pipeline {
     }
 
     stages {
-         stage("Initialize"){
-            def dockerHome = tool "Docker latest"
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
+        // stage("Initialize") {
+        //     def dockerHome = tool "Docker latest"
+        //     env.PATH = "${dockerHome}/bin:${env.PATH}"
+        // }
 
         stage("Test node & npm") {
             steps {
