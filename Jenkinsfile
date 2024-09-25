@@ -12,7 +12,7 @@ pipeline {
     }
 
     stages {
-        stage('Test node & npm') {
+        stage("Test node & npm") {
             steps {
                 sh """
                 node -v
@@ -42,7 +42,7 @@ pipeline {
 
         stage("Code Quality Analysis") {
             steps {
-                withSonarQubeEnv('SonarQube Scanner 6.2') {
+                withSonarQubeEnv("MySonarQubeServer") {
                     sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner"
                 }
             }
@@ -51,13 +51,13 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline execution finished.'
+            echo "Pipeline execution finished."
         }
         success {
-            echo 'Pipeline succeeded.'
+            echo "Pipeline succeeded."
         }
         failure {
-            echo 'Pipeline failed.'
+            echo "Pipeline failed."
         }
     }
 }
