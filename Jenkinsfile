@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools { 
-        nodejs "NodeJS 18.20" 
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+        nodejs "NodeJS 18.20"
     }
 
     environment {
