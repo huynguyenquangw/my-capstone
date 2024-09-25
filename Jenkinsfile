@@ -12,8 +12,6 @@ pipeline {
         PRODUCTION_ENVIRONMENT = "production"
         SONAR_HOST_URL = "http://localhost:9000"
         SONAR_SCANNER_HOME = tool "SonarQube Scanner 6.2"
-        p = sh 'echo $PATH'
-        PATH = p + ':/usr/local/bin/docker-compose'
     }
 
     stages {
@@ -28,7 +26,7 @@ pipeline {
                 node -v
                 npm --version
                 docker --version
-                docker-compose --version
+                docker compose version
                 """
             }
         }
@@ -65,6 +63,7 @@ pipeline {
             steps {
                 steps {
                     sh "docker version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
+                    sh "docker compose version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
                 }
             }
         }
