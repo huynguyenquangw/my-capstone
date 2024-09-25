@@ -31,5 +31,23 @@ pipeline {
                 sh "npm run build"
             }
         }
+
+        stage("Test") {
+            steps {
+                sh "npm test"
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline execution finished.'
+        }
+        success {
+            echo 'Pipeline succeeded.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
     }
 }
