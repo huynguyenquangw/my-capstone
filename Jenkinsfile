@@ -15,18 +15,12 @@ pipeline {
     }
 
     stages {
-        // stage("Initialize") {
-        //     def dockerHome = tool "Docker latest"
-        //     env.PATH = "${dockerHome}/bin:${env.PATH}"
-        // }
-
         stage("Test node & npm") {
             steps {
                 sh """
                 node -v
                 npm --version
                 docker --version
-                docker compose version
                 """
             }
         }
@@ -61,9 +55,14 @@ pipeline {
 
         stage("Deploy") {
             steps {
-                steps {
-                    sh "docker version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
-                    sh "docker compose version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
+                script {
+                    // Stop any previous instance of the Docker container
+                    sh "docker compose -f docker-compose.yml down"
+                    
+                    // Build and run the Docker container
+                    sh "docker compose -f docker-compose.yml up -d --build"
+                    
+                    echo 'Application has been deployed to the staging environment!'
                 }
             }
         }
