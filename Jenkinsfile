@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    tools { nodejs "nodejs" }
+    tools { nodejs "NodeJS 18.20" }
 
     environment {
         DIRECTORY_PATH = "./"
