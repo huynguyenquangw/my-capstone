@@ -12,6 +12,8 @@ pipeline {
         PRODUCTION_ENVIRONMENT = "production"
         SONAR_HOST_URL = "http://localhost:9000"
         SONAR_SCANNER_HOME = tool "SonarQube Scanner 6.2"
+        p = sh 'echo $PATH'
+        PATH = p + ':/usr/local/bin/docker-compose'
     }
 
     stages {
