@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" # Map the container port to your host port
+      - "3333:3333" # Map the container port to your host port
     environment:
       NODE_ENV: staging # Set your environment variables here
     volumes:
