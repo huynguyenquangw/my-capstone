@@ -57,10 +57,10 @@ pipeline {
             steps {
                 script {
                     // Stop any previous instance of the Docker container
-                    sh "docker compose -f docker-compose.yml down"
+                    sh "docker-compose -f docker-compose.yml down"
                     
                     // Build and run the Docker container
-                    sh "docker compose -f docker-compose.yml up -d --build"
+                    sh "docker-compose -f docker-compose.yml up -d --build"
                     
                     echo 'Application has been deployed to the staging environment!'
                 }
