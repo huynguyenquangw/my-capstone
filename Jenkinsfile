@@ -10,11 +10,26 @@ pipeline {
     }
 
     stages {
-        stage('Test npm') {
+        stage('Test node & npm') {
             steps {
                 sh """
+                node -v
                 npm --version
                 """
+            }
+        }
+    }
+
+    stages {
+        stage("Checkout") {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage("Build") {
+            steps {
+                sh "yarn build"
             }
         }
     }
