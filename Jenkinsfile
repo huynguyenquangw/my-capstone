@@ -14,6 +14,11 @@ pipeline {
     }
 
     stages {
+         stage("Initialize"){
+            def dockerHome = tool "Docker latest"
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+
         stage("Test node & npm") {
             steps {
                 sh """
