@@ -6,8 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3333:3333" # Map the container port to your host port
+      - "3333:3333"
     environment:
-      NODE_ENV: staging # Set your environment variables here
-    volumes:
-      - .:/usr/src/app
+      NODE_ENV: staging
+      

@@ -33,8 +33,12 @@ pipeline {
 
         stage("Build") {
             steps {
-                sh "npm install"
-                sh "npm run build"
+                // sh "npm install"
+                // sh "npm run build"
+                script {
+                    // Build the Docker image
+                    sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
+                }
             }
         }
 
@@ -46,9 +50,19 @@ pipeline {
 
         stage("Code Quality Analysis") {
             steps {
-                script {
-                    echo "Performing code analysis using SonarQube..."
-                    echo "Tool: SonarQube"
+                // script {
+                //     echo "Performing code analysis using SonarQube..."
+                //     echo "Tool: SonarQube"
+                // }
+
+                withSonarQubeEnv("SonarQube") {
+                    sh """
+                        ${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey=${env.sonar.projectKey} \
+                        -Dsonar.sources=${env.sonar.sources} \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_LOGIN_TOKEN}
+                    """
                 }
             }
         }
@@ -62,7 +76,7 @@ pipeline {
                     // Build and run the Docker container
                     sh "docker-compose -f docker-compose.yml up -d --build"
                     
-                    echo 'Application has been deployed to the staging environment!'
+                    echo "Application has been deployed to the staging environment!"
                 }
             }
         }
@@ -70,7 +84,7 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline execution finished."
+            echo "Pipeline execution finished. Build Number: ${env.BUILD_NUMBER}"
         }
         success {
             echo "Pipeline succeeded."
