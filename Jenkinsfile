@@ -18,7 +18,7 @@ pipeline {
                 """
             }
         }
-        
+
         stage("Checkout") {
             steps {
                 checkout scm
@@ -27,7 +27,7 @@ pipeline {
 
         stage("Build") {
             steps {
-                sh "yarn build"
+                sh "npm run build"
             }
         }
     }
