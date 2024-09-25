@@ -1,7 +1,10 @@
 pipeline {
     agent any
 
-    tools { nodejs "NodeJS 18.20" }
+    tools { 
+        nodejs "NodeJS 18.20" 
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+    }
 
     environment {
         DIRECTORY_PATH = "./"
@@ -51,14 +54,8 @@ pipeline {
 
         stage("Deploy") {
             steps {
-                script {
-                    // Stop any previous instance of the Docker container
-                    sh "docker-compose -f docker-compose.yml down"
-                    
-                    // Build and run the Docker container
-                    sh "docker-compose -f docker-compose.yml up -d --build"
-                    
-                    echo 'Application has been deployed to the staging environment!'
+                steps {
+                    sh "docker version" // DOCKER_CERT_PATH is automatically picked up by the Docker client
                 }
             }
         }
