@@ -56,15 +56,20 @@ pipeline {
                 //     echo "Tool: SonarQube"
                 // }
 
-                withSonarQubeEnv("MySonarQubeServer") {
-                    sh """
-                        ${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=${env.sonar.projectKey} \
-                        -Dsonar.sources=${env.sonar.sources} \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.login=${SONAR_LOGIN_TOKEN}
-                    """
+                def scannerHome = tool "SonarQube Scanner 6.2";
+                withSonarQubeEnv() {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
+
+                // withSonarQubeEnv("MySonarQubeServer") {
+                //     sh """
+                //         ${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                //         -Dsonar.projectKey=${env.sonar.projectKey} \
+                //         -Dsonar.sources=${env.sonar.sources} \
+                //         -Dsonar.host.url=${SONAR_HOST_URL} \
+                //         -Dsonar.login=${SONAR_LOGIN_TOKEN}
+                //     """
+                // }
             }
         }
 
