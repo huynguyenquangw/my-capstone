@@ -1,6 +1,8 @@
 pipeline {
     agent any
 
+    tools { nodejs "nodejs" }
+
     environment {
         DIRECTORY_PATH = "./"
         TESTING_ENVIRONMENT = "staging"
@@ -8,15 +10,11 @@ pipeline {
     }
 
     stages {
-        stage("Checkout") {
+        stage('Test npm') {
             steps {
-                checkout scm
-            }
-        }
-
-        stage("Build") {
-            steps {
-                sh "npm run build"
+                sh """
+                npm --version
+                """
             }
         }
     }
