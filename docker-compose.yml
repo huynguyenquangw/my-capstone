@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    image: my-capstone:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Map the container port to your host port
+    environment:
+      NODE_ENV: staging # Set your environment variables here
+    volumes:
+      - .:/usr/src/app
