@@ -55,10 +55,11 @@ pipeline {
                 //     echo "Performing code analysis using SonarQube..."
                 //     echo "Tool: SonarQube"
                 // }
-
-                def scannerHome = tool "SonarQube Scanner 6.2";
-                withSonarQubeEnv() {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                script {
+                    def scannerHome = tool "SonarQube Scanner 6.2"
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
 
                 // withSonarQubeEnv("MySonarQubeServer") {
