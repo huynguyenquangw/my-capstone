@@ -30,16 +30,16 @@ pipeline {
             }
         }
 
-        // stage("Build") {
-        //     steps {
-        //         sh "npm install"
-        //         sh "npm run build"
-        //         script {
-        //             // Build the Docker image
-        //             sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
-        //         }
-        //     }
-        // }
+        stage("Build") {
+            steps {
+                sh "npm install"
+                sh "npm run build"
+                // script {
+                //     // Build the Docker image
+                //     sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
+                // }
+            }
+        }
 
         // stage("Test") {
         //     steps {
