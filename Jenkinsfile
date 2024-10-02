@@ -47,12 +47,12 @@ pipeline {
         //     }
         // }
 
-        // stage('SonarQube Analysis') {
-        //     def scannerHome = tool 'default-sonar-scanner';
-        //     withSonarQubeEnv() {
-        //       sh "${scannerHome}/bin/sonar-scanner"
-        //     }
-        //   }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'default-sonar-scanner';
+            withSonarQubeEnv() {
+              sh "${scannerHome}/bin/sonar-scanner"
+            }
+          }
 
         // stage("Deploy") {
         //     steps {
