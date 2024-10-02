@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:27.2.0'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     tools { 
         nodejs "default-nodejs"
