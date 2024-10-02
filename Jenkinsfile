@@ -3,6 +3,7 @@ pipeline {
 
     tools { 
         nodejs "default-nodejs"
+        tool "default-sonar-scanner"
     }
 
     // environment {
@@ -48,11 +49,15 @@ pipeline {
         // }
 
         stage('SonarQube Analysis') {
-            def scannerHome = tool 'default-sonar-scanner';
-            withSonarQubeEnv() {
-              sh "${scannerHome}/bin/sonar-scanner"
+            steps {
+                script {
+                    def scannerHome = tool 'default-sonar-scanner'
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
             }
-          }
+        }
 
         // stage("Deploy") {
         //     steps {
