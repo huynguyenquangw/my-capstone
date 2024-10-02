@@ -3,7 +3,6 @@ pipeline {
 
     tools { 
         nodejs "default-nodejs"
-        tool "default-sonar-scanner"
     }
 
     // environment {
