@@ -5,6 +5,10 @@ pipeline {
         nodejs "default-nodejs"
     }
 
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')  // Replace 'dockerhub' with the ID of your DockerHub credentials in Jenkins
+    }
+
     // environment {
     //     DIRECTORY_PATH = "./"
     //     TESTING_ENVIRONMENT = "staging"
@@ -30,14 +34,32 @@ pipeline {
             }
         }
 
-        stage("Build") {
-            steps {
-                sh "npm install"
-                sh "npm run build"
-                // script {
-                //     // Build the Docker image
-                //     sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
-                // }
+        // stage("Build") {
+        //     steps {
+        //         sh "npm install"
+        //         sh "npm run build"
+        //         // script {
+        //         //     // Build the Docker image
+        //         //     sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
+        //         // }
+        //     }
+        // }
+
+        stage('Build') {
+            agent any
+                steps {
+                    sh "npm install"
+                    sh "npm run build"
+                    sh "docker build -t huynguyenquangw/capstone:${env.BUILD_NUMBER} ."
+            }
+        }
+        stage('Docker Push') {
+            agent any
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                        sh 'docker push huynguyenquangw/capstone:latest'
+                }
             }
         }
 
