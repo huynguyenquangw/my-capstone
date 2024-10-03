@@ -67,17 +67,17 @@ pipeline {
                 sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
             }
         }
-        // stage('Docker Push') {
-        //     // agent any
-        //     steps {
-        //         // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        //         //     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        stage('Docker Push') {
+            // agent any
+            steps {
+                // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                //     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 
-        //         // }
-        //             // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //             // sh 'docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}'
-        //     }
-        // }
+                // }
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}'
+            }
+        }
 
         // stage("Test") {
         //     steps {
@@ -85,16 +85,16 @@ pipeline {
         //     }
         // }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    def scannerHome = tool 'default-sonar-scanner'
-                    withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //             def scannerHome = tool 'default-sonar-scanner'
+        //             withSonarQubeEnv() {
+        //                 sh "${scannerHome}/bin/sonar-scanner"
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage("Deploy") {
         //     steps {
