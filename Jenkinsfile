@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent { 
+        node {
+            label 'docker-agent-python'
+        }
+    }
     // {
     //     docker {
     //         image 'docker:27.2.0'
