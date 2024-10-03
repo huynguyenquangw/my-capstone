@@ -14,7 +14,7 @@ pipeline {
 
     tools { 
         nodejs "default-nodejs"
-        "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "default-docker"
+        // "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "default-docker"
     }
 
     environment {
