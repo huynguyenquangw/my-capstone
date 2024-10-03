@@ -53,14 +53,14 @@ pipeline {
         //     }
         // }
 
-        stage('Build') {
-            agent any
-                steps {
-                    sh "docker -v"
-                    // sh "npm install"
-                    // sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
-            }
-        }
+        // stage('Build') {
+        //     agent any
+        //         steps {
+        //             sh "docker -v"
+        //             // sh "npm install"
+        //             // sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
+        //     }
+        // }
         stage('Docker Push') {
             agent any
                 steps {
