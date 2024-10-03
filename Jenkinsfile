@@ -86,11 +86,11 @@ pipeline {
                     echo 'Deploying to Docker container...'
                     
                     // Remove old container if exists
-                    sh "docker stop ${registry} || true"
-                    sh "docker rm ${registry} || true"
+                    sh "docker stop my-capstone || true"
+                    sh "docker rm my-capstone || true"
 
                     // Run a new container with your app
-                    sh "docker run -d --name ${registry} -p 3030:3000 ${registry}:latest"
+                    sh "docker run -d --name my-capstone -p 3030:3000 ${registry}:latest"
                 }
             }
         }
