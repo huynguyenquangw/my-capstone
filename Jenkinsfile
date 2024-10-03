@@ -55,9 +55,9 @@ pipeline {
         stage('Build') {
             agent any
                 steps {
-                    sh "npm install"
-                    sh "npm run build"
-                    sh "docker build -t huynguyenquangw/capstone:${env.BUILD_NUMBER} ."
+                    sh "docker -v"
+                    // sh "npm install"
+                    // sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
             }
         }
         stage('Docker Push') {
@@ -65,7 +65,7 @@ pipeline {
                 steps {
                     withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                        sh 'docker push huynguyenquangw/capstone:latest'
+                        sh 'docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}'
                 }
             }
         }
