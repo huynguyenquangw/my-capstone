@@ -63,6 +63,7 @@ pipeline {
             steps {
                 sh "docker -v"
                 // sh "npm install"
+                sleep 5
                 sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
             }
         }
