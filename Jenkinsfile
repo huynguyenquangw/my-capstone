@@ -14,7 +14,7 @@ pipeline {
 
     tools { 
         nodejs "default-nodejs"
-        // "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "default-docker"
+        "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "default-docker"
     }
 
     environment {
@@ -63,7 +63,7 @@ pipeline {
             steps {
                 sh "docker -v"
                 // sh "npm install"
-                sleep 5
+                // sleep 5
                 sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
             }
         }
