@@ -19,9 +19,6 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerHub')
-    }
-
-    environment {
         registry = "879381259188.dkr.ecr.ap-southeast-2.amazonaws.com/huynguyenquangw/my-capstone"
         // DIRECTORY_PATH = "./"
         // TESTING_ENVIRONMENT = "staging"
