@@ -111,7 +111,6 @@ pipeline {
 
     post {
         always {
-            sh 'docker logout'
             echo "Pipeline execution finished. Build Number: ${env.BUILD_NUMBER}"
         }
         success {
