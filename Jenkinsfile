@@ -31,6 +31,7 @@ pipeline {
                 sh """
                 node -v
                 npm -v
+                docker -v
                 """
             }
         }
