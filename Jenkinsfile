@@ -89,7 +89,7 @@ pipeline {
                     sh 'docker rm my-capstone || true'
 
                     // Run a new container with your app
-                    sh 'docker run -d --name my-capstone -p 80:80 huynguyenquangw/my-capstone:latest'
+                    sh 'docker run -d --name my-capstone -p 3030:3000 huynguyenquangw/my-capstone:latest'
                 }
             }
         }
