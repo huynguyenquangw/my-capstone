@@ -79,6 +79,21 @@ pipeline {
             }
         }
 
+        stage('Deploy to Docker') {
+            steps {
+                script {
+                    echo 'Deploying to Docker container...'
+                    
+                    // Remove old container if exists
+                    sh 'docker stop my-capstone || true'
+                    sh 'docker rm my-capstone || true'
+
+                    // Run a new container with your app
+                    sh 'docker run -d --name my-capstone -p 80:80 huynguyenquangw/my-capstone:latest'
+                }
+            }
+        }
+
         // stage("Test") {
         //     steps {
         //         sh "npm test"
