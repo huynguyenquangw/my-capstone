@@ -112,12 +112,21 @@ pipeline {
         //     }
         // }
 
-        // stage("Release") {
-        //     steps {
+        stage("Release") {
+            steps {
+                script {
+                    sh "aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 879381259188.dkr.ecr.ap-southeast-2.amazonaws.com"
+                    sh "docker push ${registry}:latest"
+                }
+            }
+        }
+        
+        // stage('Run') {
+        //     steps{
         //         script {
-        //             sh "aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 879381259188.dkr.ecr.ap-southeast-2.amazonaws.com"
-        //             sh "docker push ${registry}:latest"
-        //         }
+        //             sh 'docker ps -f name=my-capstone -q | xargs --no-run-if-empty docker container stop'
+        //             sh 'docker container ls -a -fname=my-capstone -q | xargs -r docker container rm'
+        //             sh "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
         //     }
         // }
     }
