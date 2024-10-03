@@ -133,6 +133,7 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         always {
