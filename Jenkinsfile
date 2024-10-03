@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    { 
-        node {
-            label 'docker-agent-alpine'
-        }
-    }
+    // { 
+    //     node {
+    //         label 'docker-agent-alpine'
+    //     }
+    // }
     // {
     //     docker {
     //         image 'docker:27.2.0'
