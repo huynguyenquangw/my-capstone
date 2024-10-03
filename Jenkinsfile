@@ -31,7 +31,6 @@ pipeline {
                 sh """
                 node -v
                 npm -v
-                docker -v
                 """
             }
         }
@@ -62,12 +61,14 @@ pipeline {
             }
         }
         stage('Docker Push') {
-            agent any
-                steps {
-                    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                        sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                        sh 'docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}'
-                }
+            // agent any
+            steps {
+                // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                //     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+
+                // }
+                    // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    // sh 'docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}'
             }
         }
 
@@ -105,6 +106,7 @@ pipeline {
 
     post {
         always {
+            sh 'docker logout'
             echo "Pipeline execution finished. Build Number: ${env.BUILD_NUMBER}"
         }
         success {
