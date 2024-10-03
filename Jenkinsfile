@@ -64,7 +64,7 @@ pipeline {
                 sh "docker -v"
                 // sh "npm install"
                 // sleep 5
-                sh "docker build -t huynguyenquangw/my-capstone:${env.BUILD_NUMBER} ."
+                sh "docker build -t huynguyenquangw/my-capstone:latest ."
             }
         }
         stage('Docker Push') {
@@ -75,7 +75,7 @@ pipeline {
 
                 // }
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh "docker push huynguyenquangw/my-capstone:${env.BUILD_NUMBER}"
+                    sh "docker push huynguyenquangw/my-capstone:latest"
             }
         }
 
