@@ -133,7 +133,7 @@ pipeline {
                     def test1 = "pwd"
                     def test2 = "docker version"
                     sshagent(['3.27.169.6']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 && ${test1} && ${test2}"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${test1} && ${test2}"
                         // sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop} ${docker_clean} ${kickoff} sleep 15"
                         // sh "${docker_stop}"
                         // sh "${docker_clean}"
