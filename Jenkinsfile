@@ -1,31 +1,14 @@
 pipeline {
     agent any
-    // { 
-    //     node {
-    //         label 'docker-agent-alpine'
-    //     }
-    // }
-    // {
-    //     docker {
-    //         image 'docker:27.2.0'
-    //         args '-v /var/run/docker.sock:/var/run/docker.sock'
-    //     }
-    // }
 
     tools { 
         nodejs "default-nodejs"
         "org.jenkinsci.plugins.docker.commons.tools.DockerTool" "default-docker"
     }
-
+    
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerHub')
         registry = "879381259188.dkr.ecr.ap-southeast-2.amazonaws.com/huynguyenquangw/my-capstone"
-        // DIRECTORY_PATH = "./"
-        // TESTING_ENVIRONMENT = "staging"
-        // PRODUCTION_ENVIRONMENT = "production"
-        // SONAR_HOST_URL = "http://localhost:9000"
-        // SONAR_SCANNER_HOME = tool "SonarQube Scanner 6.2"
-        // SONAR_LOGIN_TOKEN = "sqp_7145b5dbe5cc9e3a502f1c02b1cf631623e1664a"
     }
 
     stages {
@@ -45,29 +28,19 @@ pipeline {
             }
         }
 
-        // stage("Build") {
-        //     steps {
-        //         sh "npm install"
-        //         sh "npm run build"
-        //         // script {
-        //         //     // Build the Docker image
-        //         //     sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
-        //         // }
-        //     }
-        // }
-
         stage('Build') {
-            // agent any
             steps {
-                // sh "docker -v"
-                // // sh "npm install"
-                // // sleep 5
                 sh "docker build --platform linux/amd64 -t ${registry}:latest ."
-                // script {
-                //     dockerImage = docker.build registry
-                // }
+                // sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
             }
         }
+
+        stage("Test") {
+            steps {
+                sh "npm test"
+            }
+        }
+        
         // stage('Docker Push') {
         //     // agent any
         //     steps {
@@ -94,12 +67,6 @@ pipeline {
                 }
             }
         }
-
-        // stage("Test") {
-        //     steps {
-        //         sh "npm test"
-        //     }
-        // }
 
         stage('SonarQube Analysis') {
             steps {
@@ -128,19 +95,14 @@ pipeline {
             steps {
                 script {
                     def docker_stop = "docker stop my-capstone || true"
-                    // def docker_clean = "docker container ls -a -fname=my-capstone -q | xargs -r docker container rm"
                     def docker_clean = "docker rm my-capstone || true"
                     def kickoff = "docker run -d -p 3030:3000 --platform linux/amd64 --rm --name my-capstone ${registry}:latest"
                     def test1 = "pwd"
                     def test2 = "docker version"
                     sshagent(['3.27.169.6']) {
-                        // sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${test1} && ${test2}"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop}"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_clean}"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${kickoff}"
-                        // sh "${docker_stop}"
-                        // sh "${docker_clean}"
-                        // sh "${kickoff}"
                     }
                 }
             }
