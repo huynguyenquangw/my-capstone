@@ -127,10 +127,12 @@ pipeline {
         stage('Run') {
             steps {
                 script {
+                    def docker_stop = "docker stop my-capstone || true"
                     def docker_clean = "docker container ls -a -fname=my-capstone -q | xargs -r docker container rm"
                     def kickoff = "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
                     sshagent(['3.27.169.6']) {
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6"
+                        sh "${docker_stop}"
                         sh "${docker_clean}"
                         sh "${kickoff}"
                     }
