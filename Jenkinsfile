@@ -131,7 +131,7 @@ pipeline {
                     def docker_clean = "docker container ls -a -fname=my-capstone -q | xargs -r docker container rm"
                     def kickoff = "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
                     sshagent(['3.27.169.6']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop} ${docker_clean} ${kickoff}"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop} ${docker_clean} ${kickoff} sleep 15"
                         // sh "${docker_stop}"
                         // sh "${docker_clean}"
                         // sh "${kickoff}"
