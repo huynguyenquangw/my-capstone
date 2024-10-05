@@ -62,7 +62,7 @@ pipeline {
                 // sh "docker -v"
                 // // sh "npm install"
                 // // sleep 5
-                sh "docker build --platform linux/amd64 -t huynguyenquangw/my-capstone:latest ."
+                sh "docker build --platform linux/amd64 -t ${registry}:latest ."
                 // script {
                 //     dockerImage = docker.build registry
                 // }
