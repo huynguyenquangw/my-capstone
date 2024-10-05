@@ -62,10 +62,10 @@ pipeline {
                 // sh "docker -v"
                 // // sh "npm install"
                 // // sleep 5
-                // sh "docker build -t huynguyenquangw/my-capstone:latest ."
-                script {
-                    dockerImage = docker.build registry
-                }
+                sh "docker build --platform linux/amd64 -t huynguyenquangw/my-capstone:latest ."
+                // script {
+                //     dockerImage = docker.build registry
+                // }
             }
         }
         // stage('Docker Push') {
