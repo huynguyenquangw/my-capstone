@@ -130,8 +130,11 @@ pipeline {
                     def docker_stop = "docker stop my-capstone || true"
                     def docker_clean = "docker container ls -a -fname=my-capstone -q | xargs -r docker container rm"
                     def kickoff = "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
+                    def test1 = "pwd"
+                    def test2 = "docker version"
                     sshagent(['3.27.169.6']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop} ${docker_clean} ${kickoff} sleep 15"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${test1} ${test2}"
+                        // sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_stop} ${docker_clean} ${kickoff} sleep 15"
                         // sh "${docker_stop}"
                         // sh "${docker_clean}"
                         // sh "${kickoff}"
