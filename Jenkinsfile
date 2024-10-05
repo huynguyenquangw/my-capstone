@@ -126,17 +126,13 @@ pipeline {
         
         stage('Run') {
             steps {
-                // script {
-                //     sh 'docker ps -f name=my-capstone -q | xargs --no-run-if-empty docker container stop'
-                //     sh 'docker container ls -a -fname=my-capstone -q | xargs -r docker container rm'
-                //     sh "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
-                // }
                 script {
-                    // def ecr_pull_image = ""
                     def docker_clean = "docker container ls -a -fname=my-capstone -q | xargs -r docker container rm"
                     def kickoff = "docker run -d -p 3030:3000 --rm --name my-capstone ${registry}:latest"
                     sshagent(['3.27.169.6']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${docker_clean} ${kickoff}"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6"
+                        sh "${docker_clean}"
+                        sh "${kickoff}"
                     }
                 }
             }
