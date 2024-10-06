@@ -37,19 +37,19 @@ pipeline {
 
         stage("Test") {
             steps {
+                sh "npm install"
                 sh "npm test"
             }
         }
         
         // stage('Docker Push') {
-        //     // agent any
+        //     agent any
         //     steps {
-        //         // withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        //         //     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-
-        //         // }
-        //             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //             sh "docker push huynguyenquangw/my-capstone:latest"
+        //         withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        //             sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+        //         }
+        //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        //         sh "docker push huynguyenquangw/my-capstone:latest"
         //     }
         // }
 
