@@ -72,7 +72,7 @@ pipeline {
             steps {
                 script {
                     // def scannerHome = tool 'default-sonar-scanner'
-                    withSonarQubeEnv('default-sonar-scanner') {
+                    withSonarQubeEnv('sq') {
                         // sh "${scannerHome}/bin/sonar-scanner"
                         sh "mvn sonar:sonar"
                     }
@@ -106,6 +106,12 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@3.27.169.6 ${kickoff}"
                     }
                 }
+            }
+        }
+
+        stage('Monitoring and Alerting') {
+            steps {
+                echo "Monitoring and Alerting"
             }
         }
     }
