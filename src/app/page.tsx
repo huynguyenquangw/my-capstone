@@ -4,6 +4,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1>SIT753 - Task 6.2HD Create your DevOps Pipeline</h1>
         <h2>Hello 🚀🚀🚀🚀🚀</h2>
+        <p>Jake Nguyen 😃</>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       </footer>
