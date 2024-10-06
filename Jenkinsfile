@@ -71,9 +71,10 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'default-sonar-scanner'
-                    withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    // def scannerHome = tool 'default-sonar-scanner'
+                    withSonarQubeEnv('default-sonar-scanner') {
+                        // sh "${scannerHome}/bin/sonar-scanner"
+                        sh "mvn sonar:sonar"
                     }
                 }
             }
