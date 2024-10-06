@@ -30,7 +30,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "docker build --platform linux/amd64 -t ${registry}:latest ."
+                sh "docker build --platform linux/amd64 -t my-capstone:latest ."
+                sh "docker tag my-capstone:latest ${registry}:${env.BUILD_NUMBER}"
                 // sh "docker build -t my-capstone:${env.BUILD_NUMBER} ."
             }
         }
@@ -49,7 +50,7 @@ pipeline {
         //             sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
         //         }
         //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //         sh "docker push huynguyenquangw/my-capstone:latest"
+        //         sh "docker push${registry}:${env.BUILD_NUMBER}"
         //     }
         // }
 
@@ -63,7 +64,7 @@ pipeline {
                     sh "docker rm my-capstone || true"
 
                     // Run a new container with your app
-                    sh "docker run -d --name my-capstone -p 3030:3000 ${registry}:latest"
+                    sh "docker run -d --name my-capstone -p 3030:3000 ${registry}:${env.BUILD_NUMBER}"
                 }
             }
         }
@@ -90,7 +91,7 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws1']]) {
                         sh "aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 879381259188.dkr.ecr.ap-southeast-2.amazonaws.com"
                     }
-                    sh "docker push ${registry}:latest"
+                    sh "docker push ${registry}:${env.BUILD_NUMBER}"
                 }
             }
         }
@@ -100,7 +101,7 @@ pipeline {
                 script {
                     def docker_stop = "docker stop my-capstone || true"
                     def docker_clean = "docker rm my-capstone || true"
-                    def kickoff = "docker run -d -p 3030:3000 --platform linux/amd64 --rm --name my-capstone ${registry}:latest"
+                    def kickoff = "docker run -d -p 3030:3000 --platform linux/amd64 --rm --name my-capstone ${registry}:${env.BUILD_NUMBER}"
                     def test1 = "pwd"
                     def test2 = "docker version"
                     sshagent(['3.27.169.6']) {
