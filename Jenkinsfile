@@ -71,12 +71,14 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // def scannerHome = tool 'default-sonar-scanner'
-                    withSonarQubeEnv(installationName: 'sq') {
-                        // sh "${scannerHome}/bin/sonar-scanner"
-                        // sh "mvn sonar:sonar"
-                        sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                    def scannerHome = tool 'default-sonar-scanner'
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
                     }
+                    // withSonarQubeEnv(installationName: 'sq') {
+                    //     sh "mvn sonar:sonar"
+                    //     sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+                    // }
                 }
             }
         }
